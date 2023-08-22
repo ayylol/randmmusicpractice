@@ -1,0 +1,43 @@
+#!/bin/python
+import random
+import sys
+
+notes = "ABCDEFG"
+sharp = "ACDFG"
+flat = "ABDEG"
+modes = ["Ionian","Dorian","Phrygian","Lydian","Mixolydian","Aeolian","Locrian"]
+chords = ["M7","m7","7","m7b5"]
+inversions = ["first", "second", "third", "fourth"]
+
+def main():
+    if len(sys.argv) == 2:
+        if sys.argv[1] == "chord":
+            print(random_chord())
+        elif sys.argv[1] == "mode":
+            print(random_mode())
+    else:
+        usage()
+
+def random_note():
+    n = random.random()
+    if n < 1.0/3.0:
+        return random.choice(flat) + "b"
+    elif n < 2.0/3.0:
+        return random.choice(sharp) + "#"
+    else:
+        return random.choice(notes)
+
+def random_mode():
+    return random_note() + " " + random.choice(modes)
+
+def random_chord():
+    quality = chords[3]
+    if random.random() > 0.05:
+        quality = random.choice(chords[:-1])
+    return random_note() + quality + " in " + random.choice(inversions) + " inversion"
+
+def usage():
+    print("random chord/mode")
+
+if __name__ == "__main__":
+    main()
