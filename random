@@ -7,7 +7,7 @@ sharp = "ACDFG"
 flat = "ABDEG"
 modes = ["Ionian","Dorian","Phrygian","Lydian","Mixolydian","Aeolian","Locrian"]
 chords = ["M7","m7","7","m7b5"]
-inversions = ["first", "second", "third", "fourth"]
+inversions = ["", "first", "second", "third"]
 
 def main():
     if len(sys.argv) == 2:
@@ -34,7 +34,9 @@ def random_chord():
     quality = chords[3]
     if random.random() > 0.05:
         quality = random.choice(chords[:-1])
-    return random_note() + quality + " in " + random.choice(inversions) + " inversion"
+    inversion = random.choice(inversions)
+    if inversion != "": inversion += " inversion"
+    return random_note() + quality + " " + inversion 
 
 def usage():
     print("random chord/mode")
